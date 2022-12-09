@@ -15,6 +15,6 @@ setup(
     long_description_content_type="text/markdown",
     license="MIT",
     packages=find_packages(),
-    install_requires=["requests"],
+    install_requires=["aiohttp>=3.7.3"],
     extras_require={"testing": ["nose",],},
 )
