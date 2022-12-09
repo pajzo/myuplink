@@ -15,6 +15,6 @@ setup(
     long_description_content_type="text/markdown",
     license="MIT",
     packages=find_packages(),
-    install_requires=["requests", "requests_oauthlib"],
+    install_requires=["requests"],
     extras_require={"testing": ["nose",],},
 )

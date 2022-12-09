@@ -1,0 +1,5 @@
+pip install .
+
+python -m pip install --user --upgrade setuptools
+
+python setup.py sdist
