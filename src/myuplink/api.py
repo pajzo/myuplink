@@ -1,7 +1,7 @@
 from typing import List
 
 from .auth import Auth
-from .models import System, Device
+from .models import System, Device, DevicePoint
 
 
 class MyUplinkAPI:
@@ -23,4 +23,11 @@ class MyUplinkAPI:
         """Return the device."""
         resp = await self.auth.request("get", f"v2/devices/{device_id}")
         resp.raise_for_status()
-        return Device(await resp.json(), self.auth)
+        return Device(await resp.json())
+
+    async def async_get_device_points(self, device_id) -> List[DevicePoint]:
+        """Return device points."""
+        resp = await self.auth.request("get", f"v2/devices/{device_id}/points")
+        resp.raise_for_status()
+        array = await resp.json()
+        return [DevicePoint(point_data) for point_data in array]

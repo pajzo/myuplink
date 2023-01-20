@@ -24,5 +24,10 @@ async def main():
                 print(device.firmwareCurrent)
                 print(device.firmwareDesired)
 
+                points = await api.async_get_device_points(sysDevice.deviceId)
+                for point in points:
+                    print(point.parameter_name)
+                    print(point.timestamp)
+
 
 asyncio.run(main())

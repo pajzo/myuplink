@@ -41,12 +41,11 @@ class System():
         return [SystemDevice(device_data) for device_data in self.raw_data["devices"]]
 
 
-class Device(Auth):
+class Device():
 
-    def __init__(self, raw_data: dict, auth: Auth):
+    def __init__(self, raw_data: dict):
         """Initialize a device object."""
         self.raw_data = raw_data
-        self.auth = auth
 
     @property
     def id(self) -> int:
@@ -71,10 +70,40 @@ class Device(Auth):
     @property
     def firmwareDesired(self) -> str:
         """Return the desired firmware version."""
-        return self.raw_data["firmware"]["desiredFwVersion"]                
+        return self.raw_data["firmware"]["desiredFwVersion"]       
 
-    async def async_update(self):
-        """Update the device data."""
-        resp = await self.auth.request("get", f"v2/devices/{self.id}")
-        resp.raise_for_status()
-        self.raw_data = await resp.json()        
+    @property
+    def connectionState(self) -> str:
+        """Return the connection state."""
+        return self.raw_data["connectionState"]
+
+
+class DevicePoint():
+
+    def __init__(self, raw_data: dict):
+        """Initialize a device point."""
+        self.raw_data = raw_data
+
+    @property
+    def category(self) -> str:
+        return self.raw_data["category"]
+
+    @property
+    def parameter_id(self) -> str:
+        return self.raw_data["parameterId"]
+
+    @property
+    def parameter_name(self) -> str:
+        return self.raw_data["parameterName"]
+
+    @property
+    def parameter_unit(self) -> str:
+        return self.raw_data["parameterUnit"]
+
+    @property
+    def timestamp(self) -> str:
+        return self.raw_data["timestamp"]
+
+    @property
+    def value(self):
+        return self.raw_data["value"]
