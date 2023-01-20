@@ -1,8 +1,8 @@
 import asyncio
 import aiohttp
 
-from auth import Auth
-from api import MyUplinkAPI
+from myuplink.auth import Auth
+from myuplink.api import MyUplinkAPI
 
 
 async def main():

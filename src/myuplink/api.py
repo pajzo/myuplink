@@ -1,7 +1,7 @@
 from typing import List
 
-from auth import Auth
-from models import System, Device
+from .auth import Auth
+from .models import System, Device
 
 
 class MyUplinkAPI:

@@ -1,6 +1,6 @@
 from typing import List
 
-from auth import Auth
+from .auth import Auth
 
 class SystemDevice():
 

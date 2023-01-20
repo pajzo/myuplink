@@ -1,4 +1,4 @@
-from auth_abstract import AbstractAuth
+from .auth_abstract import AbstractAuth
 from aiohttp import ClientSession
 
 class Auth(AbstractAuth):
