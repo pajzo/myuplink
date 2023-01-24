@@ -9,7 +9,7 @@ class SystemDevice():
         self.raw_data = raw_data
 
     @property
-    def deviceId(self) -> int:
+    def deviceId(self) -> str:
         """Return the ID of the device."""
         return self.raw_data["id"]
 
@@ -21,7 +21,7 @@ class System():
         self.raw_data = raw_data
 
     @property
-    def id(self) -> int:
+    def id(self) -> str:
         """Return the ID of the system."""
         return self.raw_data["systemId"]
 
@@ -48,7 +48,7 @@ class Device():
         self.raw_data = raw_data
 
     @property
-    def id(self) -> int:
+    def id(self) -> str:
         """Return the ID of the device."""
         return self.raw_data["id"]
 
