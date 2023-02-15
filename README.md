@@ -2,7 +2,7 @@
 
 Package for getting data from the myUplink API.
 
-Supported features:
+## Supported features
 - Get systems
 - Get devices on a system
 - Get data points on a device
