@@ -13,6 +13,10 @@ class SystemDevice():
         """Return the ID of the device."""
         return self.raw_data["id"]
 
+    @property
+    def raw(self) -> dict:
+        return self.raw_data
+
 
 class System():
 
@@ -40,6 +44,9 @@ class System():
         """Return devices on the system."""
         return [SystemDevice(device_data) for device_data in self.raw_data["devices"]]
 
+    @property
+    def raw(self) -> dict:
+        return self.raw_data
 
 class Device():
 
@@ -77,6 +84,9 @@ class Device():
         """Return the connection state."""
         return self.raw_data["connectionState"]
 
+    @property
+    def raw(self) -> dict:
+        return self.raw_data
 
 class DevicePoint():
 
@@ -107,3 +117,16 @@ class DevicePoint():
     @property
     def value(self):
         return self.raw_data["value"]
+    
+    @property
+    def enum_values(self):
+        return self.raw_data["enumValues"]
+
+    @property
+    def writable(self) -> bool:
+        return self.raw_data["writable"]
+
+    @property
+    def raw(self) -> dict:
+        return self.raw_data
+    
