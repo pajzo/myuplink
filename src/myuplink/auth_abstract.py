@@ -20,8 +20,7 @@ class AbstractAuth(ABC):
         if headers is None:
             headers = {}
         else:
-            headers = dict(headers)
-            kwargs.pop("headers")
+            headers = kwargs.pop("headers")
 
         access_token = await self.async_get_access_token()
         headers["authorization"] = f"Bearer {access_token}"
