@@ -1,3 +1,4 @@
+"""Define the MyUplinkAPI class."""
 from typing import List
 
 from .auth import Auth
@@ -14,7 +15,7 @@ class MyUplinkAPI:
     async def async_get_systems(self) -> List[System]:
         """Return systems."""
         json = await self.async_get_systems_json()
-        array = json["systems"]        
+        array = json["systems"]
         return [System(system_data) for system_data in array]
 
     async def async_get_systems_json(self) -> dict:
@@ -48,7 +49,8 @@ class MyUplinkAPI:
 
     async def async_set_device_points(self, device_id, data: dict) -> dict:
         """Return device points."""
-        resp = await self.auth.request("patch", f"v2/devices/{device_id}/points", json=data)
+        headers = {"Content-Type": "application/json-patch+json"}
+        resp = await self.auth.request("patch", f"v2/devices/{device_id}/points", json=data, headers=headers)
         resp.raise_for_status()
         array = await resp.json()
         return array
