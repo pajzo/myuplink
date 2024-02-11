@@ -1,4 +1,5 @@
 from typing import List
+from datetime import datetime
 
 from .auth import Auth
 
@@ -17,6 +18,56 @@ class SystemDevice():
     def raw(self) -> dict:
         return self.raw_data
 
+
+class SystemNotification():
+
+    def __init__(self, raw_data: dict):
+        """Initialize a system notification object."""
+        self.raw_data = raw_data
+
+    @property
+    def notificationId(self) -> str:
+        """Return the ID of the notification."""
+        return self.raw_data["id"]    
+
+    @property
+    def createdDatetime(self) -> datetime:
+        """Return the date and time of the notification."""
+        return datetime.strptime(self.raw_data["createdDatetime"], "%Y-%m-%dT%H:%M:%S")   
+
+    @property
+    def alarmNumber(self) -> int:
+        """Return the alarm number."""
+        return self.raw_data["id"]    
+
+    @property
+    def severity(self) -> int:
+        """Return the severity of the notification."""
+        return self.raw_data["severity"]           
+
+    @property
+    def status(self) -> str:
+        """Return the status of the notification."""
+        return self.raw_data["status"]   
+
+    @property
+    def header(self) -> str:
+        """Return the header of the notification."""
+        return self.raw_data["header"]         
+
+    @property
+    def description(self) -> str:
+        """Return the description of the notification."""
+        return self.raw_data["description"]    
+
+    @property
+    def equipName(self) -> str:
+        """Return the equipName of the notification."""
+        return self.raw_data["equipName"] 
+
+    @property
+    def raw(self) -> dict:
+        return self.raw_data                  
 
 class System():
 
