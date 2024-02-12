@@ -13,7 +13,7 @@ class AbstractAuth(ABC):
     async def async_get_access_token(self) -> str:
         """Return a valid access token."""
 
-    async def request(self, method, url, **kwargs) -> ClientResponse:
+    async def request(self, method, url, include_access_token: bool = True, **kwargs) -> ClientResponse:
         """Make a request."""
         headers = kwargs.get("headers")
 
@@ -22,8 +22,9 @@ class AbstractAuth(ABC):
         else:
             headers = kwargs.pop("headers")
 
-        access_token = await self.async_get_access_token()
-        headers["authorization"] = f"Bearer {access_token}"
+        if (include_access_token):
+            access_token = await self.async_get_access_token()
+            headers["authorization"] = f"Bearer {access_token}"
 
         return await self.websession.request(
             method, f"{self.host}/{url}", **kwargs, headers=headers,

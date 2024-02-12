@@ -15,7 +15,7 @@ class MyUplinkAPI:
     async def async_ping(self) -> bool:
         """Return true or false, depending on ping status."""
 
-        resp = await self.auth.request("get", "v2/ping")
+        resp = await self.auth.request("get", "v2/ping", include_access_token=False)
 
         if 200 <= resp.status < 300:
             return True
