@@ -12,6 +12,16 @@ class MyUplinkAPI:
         """Initialize the API and store the auth so we can make requests."""
         self.auth = auth
 
+    async def async_ping_protected(self) -> bool:
+        """Return systems."""
+        
+        resp = await self.auth.request("get", "v2/protected-ping")
+        
+        if 200 <= resp.status < 300:
+            return True
+        else:
+            return False
+
     async def async_get_systems(self) -> List[System]:
         """Return systems."""
         json = await self.async_get_systems_json()
