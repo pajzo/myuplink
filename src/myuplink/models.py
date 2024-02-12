@@ -1,7 +1,18 @@
-from typing import List
+from typing import TypeVar, Generic, List
 from datetime import datetime
 
 from .auth import Auth
+
+T = TypeVar('T')
+
+class Paging(Generic[T]):
+
+    def __init__(self, page_number: int, items_per_page: int, total_items: int, items: List[T]):
+        """Initialize a paging object."""
+        self.page_number = page_number
+        self.items_per_page = items_per_page
+        self.total_items = total_items
+        self.items = items
 
 class SystemDevice():
 
@@ -18,7 +29,6 @@ class SystemDevice():
     def raw(self) -> dict:
         return self.raw_data
 
-
 class SystemNotification():
 
     def __init__(self, raw_data: dict):
@@ -31,9 +41,9 @@ class SystemNotification():
         return self.raw_data["id"]    
 
     @property
-    def createdDatetime(self) -> datetime:
+    def created(self) -> datetime:
         """Return the date and time of the notification."""
-        return datetime.strptime(self.raw_data["createdDatetime"], "%Y-%m-%dT%H:%M:%S")   
+        return datetime.strptime(self.raw_data["createdDatetime"][:-2], "%Y-%m-%dT%H:%M:%S")  
 
     @property
     def alarmNumber(self) -> int:

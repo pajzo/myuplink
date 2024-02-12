@@ -2,7 +2,7 @@
 from typing import List
 
 from .auth import Auth
-from .models import System, Device, DevicePoint
+from .models import System, SystemNotification, Device, DevicePoint, Paging
 
 
 class MyUplinkAPI:
@@ -54,3 +54,26 @@ class MyUplinkAPI:
         resp.raise_for_status()
         array = await resp.json()
         return array
+
+    async def async_get_system_notifications(self, system_id, only_active: bool, page: int = 1, items_per_page = 10, language: str = "en-GB") -> Paging[SystemNotification]:
+        """Return device points."""
+        json = await self.async_get_system_notifications_json(system_id=system_id, only_active=only_active, page=page, items_per_page=items_per_page, language=language)
+        
+        jsonArray = json["notifications"]
+        modelArray = [SystemNotification(notification) for notification in jsonArray]
+
+        paging = Paging(page_number=json["page"], items_per_page=json["itemsPerPage"], total_items=json["numItems"], items=modelArray)
+
+        return paging
+
+    async def async_get_system_notifications_json(self, system_id, only_active: bool, page: int = 1, items_per_page = 10, language: str = "en-GB") -> dict:
+        """Return system notifications as json."""
+        headers = {"Accept-Language": language}
+
+        activeSuffix = ""
+        if (only_active):
+            activeSuffix = "/active"
+
+        resp = await self.auth.request("get", f"v2/systems/{system_id}/notifications{activeSuffix}?page={page}&itemsPerPage={items_per_page}", headers=headers)
+        resp.raise_for_status()
+        return await resp.json()
