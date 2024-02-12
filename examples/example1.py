@@ -23,6 +23,7 @@ async def main():
                 print(device.productSerialNumber)
                 print(device.firmwareCurrent)
                 print(device.firmwareDesired)
+                print(device.connectionState)
 
                 points = await api.async_get_device_points(sysDevice.deviceId)
                 for point in points:

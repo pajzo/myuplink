@@ -123,6 +123,11 @@ class System():
     def raw(self) -> dict:
         return self.raw_data
 
+class DeviceConnectionState(Enum):
+    Disconnected = 0
+    Connected = 1
+    Unknown = 99
+
 class Device():
 
     def __init__(self, raw_data: dict):
@@ -155,9 +160,14 @@ class Device():
         return self.raw_data["firmware"]["desiredFwVersion"]       
 
     @property
-    def connectionState(self) -> str:
+    def connectionState(self) -> DeviceConnectionState:
         """Return the connection state."""
-        return self.raw_data["connectionState"]
+        connection_state_str = self.raw_data.get("connectionState", "Unknown")
+
+        if connection_state_str in DeviceConnectionState.__members__:
+            return DeviceConnectionState[connection_state_str]
+        else:
+            return DeviceConnectionState.Unknown
 
     @property
     def raw(self) -> dict:
