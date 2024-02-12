@@ -55,7 +55,7 @@ class MyUplinkAPI:
         array = await resp.json()
         return array
 
-    async def async_get_system_notifications(self, system_id, only_active: bool, page: int = 1, items_per_page = 10, language: str = "en-GB") -> Paging[SystemNotification]:
+    async def async_get_system_notifications(self, system_id, only_active: bool = True, page: int = 1, items_per_page = 10, language: str = "en-GB") -> Paging[SystemNotification]:
         """Return device points."""
         json = await self.async_get_system_notifications_json(system_id=system_id, only_active=only_active, page=page, items_per_page=items_per_page, language=language)
         
@@ -66,7 +66,7 @@ class MyUplinkAPI:
 
         return paging
 
-    async def async_get_system_notifications_json(self, system_id, only_active: bool, page: int = 1, items_per_page = 10, language: str = "en-GB") -> dict:
+    async def async_get_system_notifications_json(self, system_id, only_active: bool = True, page: int = 1, items_per_page = 10, language: str = "en-GB") -> dict:
         """Return system notifications as json."""
         headers = {"Accept-Language": language}
 
