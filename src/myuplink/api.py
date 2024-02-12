@@ -1,14 +1,14 @@
 """Define the MyUplinkAPI class."""
 from typing import List
 
-from .auth import Auth
+from .auth import AbstractAuth
 from .models import System, SystemNotification, Device, DevicePoint, Paging
 
 
 class MyUplinkAPI:
     """Class to communicate with the myUplink API."""
 
-    def __init__(self, auth: Auth):
+    def __init__(self, auth: AbstractAuth):
         """Initialize the API and store the auth so we can make requests."""
         self.auth = auth
 
