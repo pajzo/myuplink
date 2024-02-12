@@ -2,6 +2,8 @@
 
 Package for getting data from the myUplink API.
 
+Primary usage is for [Home Assistant](https://www.home-assistant.io/integrations/myuplink/)
+
 ## Supported features
 - Invoke ping and protected ping
 - Get systems
