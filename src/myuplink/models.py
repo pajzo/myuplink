@@ -1,5 +1,6 @@
 from typing import TypeVar, Generic, List
 from datetime import datetime
+from enum import Enum
 
 from .auth import Auth
 
@@ -29,6 +30,14 @@ class SystemDevice():
     def raw(self) -> dict:
         return self.raw_data
 
+class SystemNotificationStatus(Enum):
+    NoStatus = 0
+    Active = 1
+    DismissedByDevice = 2
+    ResetByUserOnDevice = 3
+    ResetByUserFromCloud = 4
+    Unknown = 99
+
 class SystemNotification():
 
     def __init__(self, raw_data: dict):
@@ -56,9 +65,14 @@ class SystemNotification():
         return self.raw_data["severity"]           
 
     @property
-    def status(self) -> str:
+    def status(self) -> SystemNotificationStatus:
         """Return the status of the notification."""
-        return self.raw_data["status"]   
+        status_str = self.raw_data.get("status", "Unknown").replace("None", "NoStatus")
+
+        if status_str in SystemNotificationStatus.__members__:
+            return SystemNotificationStatus[status_str]
+        else:
+            return SystemNotificationStatus.Unknown
 
     @property
     def header(self) -> str:
