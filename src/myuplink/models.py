@@ -1,6 +1,18 @@
-from typing import List
+from typing import TypeVar, Generic, List
+from datetime import datetime
 
 from .auth import Auth
+
+T = TypeVar('T')
+
+class Paging(Generic[T]):
+
+    def __init__(self, page_number: int, items_per_page: int, total_items: int, items: List[T]):
+        """Initialize a paging object."""
+        self.page_number = page_number
+        self.items_per_page = items_per_page
+        self.total_items = total_items
+        self.items = items
 
 class SystemDevice():
 
@@ -17,6 +29,55 @@ class SystemDevice():
     def raw(self) -> dict:
         return self.raw_data
 
+class SystemNotification():
+
+    def __init__(self, raw_data: dict):
+        """Initialize a system notification object."""
+        self.raw_data = raw_data
+
+    @property
+    def notificationId(self) -> str:
+        """Return the ID of the notification."""
+        return self.raw_data["id"]    
+
+    @property
+    def created(self) -> datetime:
+        """Return the date and time of the notification."""
+        return datetime.strptime(self.raw_data["createdDatetime"][:-2], "%Y-%m-%dT%H:%M:%S")  
+
+    @property
+    def alarmNumber(self) -> int:
+        """Return the alarm number."""
+        return self.raw_data["id"]    
+
+    @property
+    def severity(self) -> int:
+        """Return the severity of the notification."""
+        return self.raw_data["severity"]           
+
+    @property
+    def status(self) -> str:
+        """Return the status of the notification."""
+        return self.raw_data["status"]   
+
+    @property
+    def header(self) -> str:
+        """Return the header of the notification."""
+        return self.raw_data["header"]         
+
+    @property
+    def description(self) -> str:
+        """Return the description of the notification."""
+        return self.raw_data["description"]    
+
+    @property
+    def equipName(self) -> str:
+        """Return the equipName of the notification."""
+        return self.raw_data["equipName"] 
+
+    @property
+    def raw(self) -> dict:
+        return self.raw_data                  
 
 class System():
 
