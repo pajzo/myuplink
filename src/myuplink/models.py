@@ -47,22 +47,22 @@ class SystemNotification():
     @property
     def notificationId(self) -> str:
         """Return the ID of the notification."""
-        return self.raw_data["id"]    
+        return self.raw_data["id"]
 
     @property
     def created(self) -> datetime:
         """Return the date and time of the notification."""
-        return datetime.strptime(self.raw_data["createdDatetime"][:-2], "%Y-%m-%dT%H:%M:%S")  
+        return datetime.strptime(self.raw_data["createdDatetime"][:-2], "%Y-%m-%dT%H:%M:%S")
 
     @property
     def alarmNumber(self) -> int:
         """Return the alarm number."""
-        return self.raw_data["id"]    
+        return self.raw_data["id"]
 
     @property
     def severity(self) -> int:
         """Return the severity of the notification."""
-        return self.raw_data["severity"]           
+        return self.raw_data["severity"]
 
     @property
     def status(self) -> SystemNotificationStatus:
@@ -77,21 +77,21 @@ class SystemNotification():
     @property
     def header(self) -> str:
         """Return the header of the notification."""
-        return self.raw_data["header"]         
+        return self.raw_data["header"]
 
     @property
     def description(self) -> str:
         """Return the description of the notification."""
-        return self.raw_data["description"]    
+        return self.raw_data["description"]
 
     @property
     def equipName(self) -> str:
         """Return the equipName of the notification."""
-        return self.raw_data["equipName"] 
+        return self.raw_data["equipName"]
 
     @property
     def raw(self) -> dict:
-        return self.raw_data                  
+        return self.raw_data
 
 class System():
 
@@ -107,12 +107,12 @@ class System():
     @property
     def name(self) -> str:
         """Return the name of the system."""
-        return self.raw_data["name"]       
+        return self.raw_data["name"]
 
     @property
     def hasAlarm(self) -> bool:
         """Return if the system has alarm."""
-        return self.raw_data["hasAlarm"]      
+        return self.raw_data["hasAlarm"]
 
     @property
     def devices(self) -> List[SystemDevice]:
@@ -152,12 +152,12 @@ class Device():
     @property
     def firmwareCurrent(self) -> str:
         """Return the current firmware version."""
-        return self.raw_data["firmware"]["currentFwVersion"]        
+        return self.raw_data["firmware"]["currentFwVersion"]
 
     @property
     def firmwareDesired(self) -> str:
         """Return the desired firmware version."""
-        return self.raw_data["firmware"]["desiredFwVersion"]       
+        return self.raw_data["firmware"]["desiredFwVersion"]
 
     @property
     def connectionState(self) -> DeviceConnectionState:
@@ -202,16 +202,35 @@ class DevicePoint():
     @property
     def value(self):
         return self.raw_data["value"]
-    
+
+    @property
+    def minValue(self) -> float | None:
+        return self.raw_data["minValue"]
+
+    @property
+    def maxValue(self) -> float | None:
+        return self.raw_data["maxValue"]
+
+    @property
+    def stepValue(self) -> float | None:
+        return self.raw_data["stepValue"]
+
     @property
     def enum_values(self):
         return self.raw_data["enumValues"]
+
+    @property
+    def smartHomeCategories(self):
+        return self.raw_data["smartHomeCategories"]
 
     @property
     def writable(self) -> bool:
         return self.raw_data["writable"]
 
     @property
+    def zoneId(self):
+        return self.raw_data["zoneId"]
+
+    @property
     def raw(self) -> dict:
         return self.raw_data
-    
