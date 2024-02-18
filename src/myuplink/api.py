@@ -21,7 +21,7 @@ class MyUplinkAPI:
             return True
         else:
             return False
-        
+
     async def async_ping_protected(self) -> bool:
         """Return true or false, depending on protected ping status."""
 
@@ -30,7 +30,7 @@ class MyUplinkAPI:
         if 200 <= resp.status < 300:
             return True
         else:
-            return False        
+            return False
 
     async def async_get_systems(self) -> List[System]:
         """Return systems."""
@@ -78,7 +78,7 @@ class MyUplinkAPI:
     async def async_get_system_notifications(self, system_id, only_active: bool = True, page: int = 1, items_per_page = 10, language: str = "en-GB") -> Paging[SystemNotification]:
         """Return device points."""
         json = await self.async_get_system_notifications_json(system_id=system_id, only_active=only_active, page=page, items_per_page=items_per_page, language=language)
-        
+
         jsonArray = json["notifications"]
         modelArray = [SystemNotification(notification) for notification in jsonArray]
 
@@ -97,3 +97,22 @@ class MyUplinkAPI:
         resp = await self.auth.request("get", f"v2/systems/{system_id}/notifications{activeSuffix}?page={page}&itemsPerPage={items_per_page}", headers=headers)
         resp.raise_for_status()
         return await resp.json()
+
+    async def async_get_smart_home_mode_json(self, system_id) -> dict:
+        """Return smart_home_mode as json."""
+        resp = await self.auth.request("get", "v2/systems/{system_id}/smart-home-mode")
+        resp.raise_for_status()
+        return await resp.json()
+
+    async def async_get_smart_home_mode(self, system_id) -> dict:
+        """Return smart_home_mode."""
+        json = await self.async_get_smart_home_mode_json(system_id)
+        return json
+
+    async def async_set_smart_home_mode(self, system_id, data: dict) -> dict:
+        """Return device points."""
+        headers = {"Content-Type": "application/json-patch+json"}
+        resp = await self.auth.request("put", f"v2/devices/{system_id}/smart-home-mode", json=data, headers=headers)
+        resp.raise_for_status()
+        array = await resp.json()
+        return array
