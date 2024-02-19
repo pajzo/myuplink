@@ -210,8 +210,12 @@ class DevicePoint():
         return self.raw_data["timestamp"]
 
     @property
-    def value(self):
+    def value(self) -> str | float | int | None:
         return self.raw_data["value"]
+
+    @value.setter
+    def value(self, new_value: str | float | int | None):
+        self.raw_data["value"] = new_value
 
     @property
     def min_value(self) -> float | None:
