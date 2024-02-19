@@ -2,8 +2,6 @@ from typing import TypeVar, Generic, List
 from datetime import datetime
 from enum import Enum
 
-from .auth import Auth
-
 T = TypeVar('T')
 
 class Paging(Generic[T]):
@@ -173,6 +171,18 @@ class Device():
     def raw(self) -> dict:
         return self.raw_data
 
+class EnumValue():
+
+    @property
+    def value(self) -> str | None:
+        return self.raw_data["value"]
+    @property
+    def text(self) -> str | None:
+        return self.raw_data["text"]
+    @property
+    def icon(self) -> str | None:
+        return self.raw_data["icon"]
+
 class DevicePoint():
 
     def __init__(self, raw_data: dict):
@@ -204,23 +214,31 @@ class DevicePoint():
         return self.raw_data["value"]
 
     @property
-    def minValue(self) -> float | None:
+    def min_value(self) -> float | None:
         return self.raw_data["minValue"]
 
     @property
-    def maxValue(self) -> float | None:
+    def max_value(self) -> float | None:
         return self.raw_data["maxValue"]
 
     @property
-    def stepValue(self) -> float | None:
+    def step_value(self) -> float | None:
         return self.raw_data["stepValue"]
 
     @property
-    def enum_values(self):
+    def scale_value(self) -> float | None:
+        return self.raw_data["scaleValue"]
+
+    @property
+    def enum_values_list(self) -> List[EnumValue]:
+        return [EnumValue(enum_data) for enum_data in self.raw_data["enumValues"]]
+
+    @property
+    def enum_values(self) -> List[EnumValue]:
         return self.raw_data["enumValues"]
 
     @property
-    def smartHomeCategories(self):
+    def smart_home_categories(self):
         return self.raw_data["smartHomeCategories"]
 
     @property
@@ -228,7 +246,7 @@ class DevicePoint():
         return self.raw_data["writable"]
 
     @property
-    def zoneId(self):
+    def zone_id(self):
         return self.raw_data["zoneId"]
 
     @property
