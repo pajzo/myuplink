@@ -1,0 +1,9 @@
+mode: ContinuousDeployment
+increment: Minor
+branches:
+  main:
+    mode: ContinuousDeployment
+    increment: Minor
+ignore:
+  sha: []
+merge-message-formats: {}
