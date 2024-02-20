@@ -6,6 +6,5 @@ from .exceptions import (  # noqa:F401
     MyUplinkException,
     MyUplinkAuthException,
     MyUplinkConflictException,
-    MyUplinkRateLimitingException
 )
 from .models import System, SystemDevice, Device, DevicePoint, EnumValue  # noqa: F401
