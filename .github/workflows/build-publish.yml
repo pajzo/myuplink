@@ -2,6 +2,9 @@ name: Build and publish
 
 on:
   workflow_dispatch:
+  pull_request:
+    branches:
+      - master
   push:
     branches:
       - master
@@ -56,6 +59,7 @@ jobs:
       run: python -m build
 
     - name: Publish package
+      if: github.event_name != 'pull_request'
       uses: pypa/gh-action-pypi-publish@27b31702a0e7fc50959f5ad993c78deac1bdfc29
       with:
         user: __token__
