@@ -27,7 +27,7 @@ class SystemDevice():
     @property
     def deviceId(self) -> str:
         """Return the ID of the device. Deprecated 2024-04-30."""
-        return self.id()
+        return self.id
 
     @property
     def product_name(self) -> str:
@@ -123,9 +123,14 @@ class System():
         self.raw_data = raw_data
 
     @property
-    def id(self) -> str:
-        """Return the ID of the system."""
+    def system_id(self) -> str:
+        """Return the system ID."""
         return self.raw_data["systemId"]
+
+    @property
+    def id(self) -> str:
+        """Return the ID of the system. Deprecated 2024-04-30"""
+        return self.system_id
 
     @property
     def name(self) -> str:
@@ -133,9 +138,24 @@ class System():
         return self.raw_data["name"]
 
     @property
-    def hasAlarm(self) -> bool:
+    def has_alarm(self) -> bool:
         """Return if the system has alarm."""
         return self.raw_data["hasAlarm"]
+
+    @property
+    def hasAlarm(self) -> bool:
+        """Return if the system has alarm. Deprecated 2024-04-30"""
+        return self.has_alarm
+
+    @property
+    def security_level(self) -> str:
+        """"Return the security level."""
+        return self.raw_data["securityLevel"]
+
+    @property
+    def country(self) -> str:
+        """"Return the country."""
+        return self.raw_data["country"]
 
     @property
     def devices(self) -> List[SystemDevice]:
