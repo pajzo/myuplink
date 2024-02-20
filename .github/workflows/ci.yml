@@ -31,7 +31,7 @@ jobs:
 
     - name: Update setup.cfg
       run: |
-        sed -i 's/%%VERSION_NO%%/${{ steps.gitversion.outputs.LegacySemVer }}/g' setup.cfg
+        sed -i 's/%%VERSION_NO%%/${{ steps.gitversion.outputs.MajorMinorPatch }}rc${{ steps.gitversion.outputs.PreReleaseNumber }}/g' setup.cfg
 
     - name: Set up Python
       uses: actions/setup-python@v3
