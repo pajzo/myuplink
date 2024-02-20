@@ -20,9 +20,34 @@ class SystemDevice():
         self.raw_data = raw_data
 
     @property
-    def deviceId(self) -> str:
+    def id(self) -> str:
         """Return the ID of the device."""
         return self.raw_data["id"]
+
+    @property
+    def deviceId(self) -> str:
+        """Return the ID of the device. Deprecated 2024-04-30."""
+        return self.id()
+
+    @property
+    def product_name(self) -> str:
+        """Return the system name."""
+        return self.raw_data["product"]["name"]
+
+    @property
+    def product_serial_number(self) -> str:
+        """Return the product serial number."""
+        return self.raw_data["product"]["serialNumber"]
+
+    @property
+    def connection_state(self) -> bool:
+        """Return the connection state."""
+        return self.raw_data["connectionState"]
+
+    @property
+    def current_fw_version(self) -> str:
+        """Return the current firmware version."""
+        return self.raw_data["currentFwVersion"]
 
     @property
     def raw(self) -> dict:
