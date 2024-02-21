@@ -7,13 +7,10 @@
   //"features": {
   //	"ghcr.io/devcontainers/features/dotnet:2": {}
   // }
-  // "features": {},
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   // "forwardPorts": [],
   // Use 'postCreateCommand' to run commands after the container is created.
   "postCreateCommand": "pip3 install build && pip3 install -r requirements.txt",
-  // Configure tool-specific properties.
-  // "customizations": {},
   // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
   // "remoteUser": "root"
   "customizations": {
@@ -23,13 +20,11 @@
         "ms-python.pylint",
         "ms-python.vscode-pylance",
         "visualstudioexptteam.vscodeintellicode",
-        "redhat.vscode-yaml",
         "esbenp.prettier-vscode",
         "GitHub.vscode-pull-request-github"
       ],
       "settings": {
         "python.pythonPath": "/usr/local/bin/python",
-        "python.testing.pytestArgs": ["--no-cov"],
         "editor.formatOnPaste": false,
         "editor.formatOnSave": true,
         "editor.formatOnType": true,
