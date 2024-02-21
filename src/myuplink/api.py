@@ -100,14 +100,14 @@ class MyUplinkAPI:
             language=language,
         )
 
-        jsonArray = json["notifications"]
-        modelArray = [SystemNotification(notification) for notification in jsonArray]
+        json_array = json["notifications"]
+        model_array = [SystemNotification(notification) for notification in json_array]
 
         paging = Paging(
             page_number=json["page"],
             items_per_page=json["itemsPerPage"],
             total_items=json["numItems"],
-            items=modelArray,
+            items=model_array,
         )
 
         return paging
@@ -123,13 +123,14 @@ class MyUplinkAPI:
         """Return system notifications as json."""
         headers = {"Accept-Language": language}
 
-        activeSuffix = ""
+        active_suffix = ""
         if only_active:
-            activeSuffix = "/active"
+            active_suffix = "/active"
 
         resp = await self.auth.request(
             "get",
-            f"v2/systems/{system_id}/notifications{activeSuffix}?page={page}&itemsPerPage={items_per_page}",
+            f"v2/systems/{system_id}/notifications{active_suffix}"
+            f"?page={page}&itemsPerPage={items_per_page}",
             headers=headers,
         )
         resp.raise_for_status()

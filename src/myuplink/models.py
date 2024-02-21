@@ -1,11 +1,17 @@
+"""Data models for myuplink."""
 from typing import TypeVar, Generic, List
 from datetime import datetime
 from enum import Enum
 
 T = TypeVar("T")
 
+# Deprecated 2024-04-30
+# pylint: disable=invalid-name
+
 
 class Paging(Generic[T]):
+    """Paging object."""
+
     def __init__(
         self, page_number: int, items_per_page: int, total_items: int, items: List[T]
     ):
@@ -17,6 +23,8 @@ class Paging(Generic[T]):
 
 
 class SystemDevice:
+    """System device object."""
+
     def __init__(self, raw_data: dict):
         """Initialize a system device object."""
         self.raw_data = raw_data
@@ -48,10 +56,13 @@ class SystemDevice:
 
     @property
     def raw(self) -> dict:
+        """Return the raw data."""
         return self.raw_data
 
 
 class SystemNotificationStatus(Enum):
+    """Enums for notification status."""
+
     NoStatus = 0
     Active = 1
     DismissedByDevice = 2
@@ -60,6 +71,8 @@ class SystemNotificationStatus(Enum):
 
 
 class SystemNotification:
+    """System notification object."""
+
     def __init__(self, raw_data: dict):
         """Initialize a system notification object."""
         self.raw_data = raw_data
@@ -133,10 +146,13 @@ class SystemNotification:
 
     @property
     def raw(self) -> dict:
+        """Return raw data."""
         return self.raw_data
 
 
 class System:
+    """System object."""
+
     def __init__(self, raw_data: dict):
         """Initialize a system object."""
         self.raw_data = raw_data
@@ -183,15 +199,20 @@ class System:
 
     @property
     def raw(self) -> dict:
+        """Return the raw data."""
         return self.raw_data
 
 
 class DeviceConnectionState(Enum):
+    """Enums for device connection state."""
+
     Disconnected = 0
     Connected = 1
 
 
 class Device:
+    """Define device object."""
+
     def __init__(self, raw_data: dict):
         """Initialize a device object."""
         self.raw_data = raw_data
@@ -244,17 +265,7 @@ class Device:
     @property
     def available_features(self) -> dict[str, bool]:
         """Return dict with available features."""
-        return self.raw_data["available_features"]
-
-    @property
-    def firmwareDesired(self) -> str:
-        """Return the desired firmware version. Deprecated 2024-04-30."""
-        return self.desired_firmware_version
-
-    @property
-    def available_features(self) -> dict[str, bool]:
-        """Return dict with available features."""
-        return self.raw_data["available_features"]
+        return self.raw_data["availableFeatures"]
 
     @property
     def connectionState(self) -> DeviceConnectionState | None:
@@ -268,92 +279,121 @@ class Device:
 
     @property
     def raw(self) -> dict:
+        """Return the raw data."""
         return self.raw_data
 
 
 class EnumValue:
+    """Define EnumValue object."""
+
+    def __init__(self, raw_data: dict):
+        """Initialize an EnumValue object."""
+        self.raw_data = raw_data
+
     @property
     def value(self) -> str | None:
+        """Return the value."""
         return self.raw_data["value"]
 
     @property
     def text(self) -> str | None:
+        """Return the text."""
         return self.raw_data["text"]
 
     @property
     def icon(self) -> str | None:
+        """Return the icon."""
         return self.raw_data["icon"]
 
 
 class DevicePoint:
+    """Define device point object."""
+
     def __init__(self, raw_data: dict):
         """Initialize a device point."""
         self.raw_data = raw_data
 
     @property
     def category(self) -> str:
+        """Return the category."""
         return self.raw_data["category"]
 
     @property
     def parameter_id(self) -> str:
+        """Return the parameter id."""
         return self.raw_data["parameterId"]
 
     @property
     def parameter_name(self) -> str:
+        """Return the parameter name."""
         return self.raw_data["parameterName"]
 
     @property
     def parameter_unit(self) -> str:
+        """Return the parameter unit."""
         return self.raw_data["parameterUnit"]
 
     @property
     def timestamp(self) -> str:
+        """Return the timestamp."""
         return self.raw_data["timestamp"]
 
     @property
     def value(self) -> str | float | int | None:
+        """Return the value."""
         return self.raw_data["value"]
 
     @value.setter
     def value(self, new_value: str | float | int | None):
+        """Set the value."""
         self.raw_data["value"] = new_value
 
     @property
     def min_value(self) -> float | None:
+        """Return the minimum value."""
         return self.raw_data["minValue"]
 
     @property
     def max_value(self) -> float | None:
+        """Return the maximum value."""
         return self.raw_data["maxValue"]
 
     @property
     def step_value(self) -> float | None:
+        """Return the step value."""
         return self.raw_data["stepValue"]
 
     @property
     def scale_value(self) -> float | None:
+        """Return the scaling factor for min and max values."""
         return self.raw_data["scaleValue"]
 
     @property
     def enum_values_list(self) -> List[EnumValue]:
+        """Return the enumValues as list."""
         return [EnumValue(enum_data) for enum_data in self.raw_data["enumValues"]]
 
     @property
-    def enum_values(self) -> List[EnumValue]:
+    def enum_values(self) -> dict:
+        """Return the enumValues as dict."""
         return self.raw_data["enumValues"]
 
     @property
     def smart_home_categories(self) -> List[str]:
+        """Return smart_home_categories as list."""
         return self.raw_data["smartHomeCategories"]
 
     @property
     def writable(self) -> bool:
+        """Return writable status."""
         return self.raw_data["writable"]
 
     @property
-    def zone_id(self):
+    def zone_id(self) -> str | None:
+        """Return the zone id."""
         return self.raw_data["zoneId"]
 
     @property
     def raw(self) -> dict:
+        """Return the raw data."""
         return self.raw_data
