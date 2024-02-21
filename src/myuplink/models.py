@@ -2,19 +2,21 @@ from typing import TypeVar, Generic, List
 from datetime import datetime
 from enum import Enum
 
-T = TypeVar('T')
+T = TypeVar("T")
+
 
 class Paging(Generic[T]):
-
-    def __init__(self, page_number: int, items_per_page: int, total_items: int, items: List[T]):
+    def __init__(
+        self, page_number: int, items_per_page: int, total_items: int, items: List[T]
+    ):
         """Initialize a paging object."""
         self.page_number = page_number
         self.items_per_page = items_per_page
         self.total_items = total_items
         self.items = items
 
-class SystemDevice():
 
+class SystemDevice:
     def __init__(self, raw_data: dict):
         """Initialize a system device object."""
         self.raw_data = raw_data
@@ -48,6 +50,7 @@ class SystemDevice():
     def raw(self) -> dict:
         return self.raw_data
 
+
 class SystemNotificationStatus(Enum):
     NoStatus = 0
     Active = 1
@@ -56,8 +59,8 @@ class SystemNotificationStatus(Enum):
     ResetByUserFromCloud = 4
     Unknown = 99
 
-class SystemNotification():
 
+class SystemNotification:
     def __init__(self, raw_data: dict):
         """Initialize a system notification object."""
         self.raw_data = raw_data
@@ -80,7 +83,9 @@ class SystemNotification():
     @property
     def created(self) -> datetime:
         """Return the date and time of the notification."""
-        return datetime.strptime(self.raw_data["createdDatetime"][:-2], "%Y-%m-%dT%H:%M:%S")
+        return datetime.strptime(
+            self.raw_data["createdDatetime"][:-2], "%Y-%m-%dT%H:%M:%S"
+        )
 
     @property
     def alarm_number(self) -> int:
@@ -131,8 +136,8 @@ class SystemNotification():
     def raw(self) -> dict:
         return self.raw_data
 
-class System():
 
+class System:
     def __init__(self, raw_data: dict):
         """Initialize a system object."""
         self.raw_data = raw_data
@@ -164,12 +169,12 @@ class System():
 
     @property
     def security_level(self) -> str:
-        """"Return the security level."""
+        """ "Return the security level."""
         return self.raw_data["securityLevel"]
 
     @property
     def country(self) -> str:
-        """"Return the country."""
+        """ "Return the country."""
         return self.raw_data["country"]
 
     @property
@@ -181,13 +186,14 @@ class System():
     def raw(self) -> dict:
         return self.raw_data
 
+
 class DeviceConnectionState(Enum):
     Disconnected = 0
     Connected = 1
     Unknown = 99
 
-class Device():
 
+class Device:
     def __init__(self, raw_data: dict):
         """Initialize a device object."""
         self.raw_data = raw_data
@@ -205,7 +211,7 @@ class Device():
     @property
     def productName(self) -> str:
         """Return the name of the device product. Deprecated 2024-04-30."""
-        return self.productName
+        return self.product_name
 
     @property
     def product_serial_number(self) -> str:
@@ -256,20 +262,22 @@ class Device():
     def raw(self) -> dict:
         return self.raw_data
 
-class EnumValue():
 
+class EnumValue:
     @property
     def value(self) -> str | None:
         return self.raw_data["value"]
+
     @property
     def text(self) -> str | None:
         return self.raw_data["text"]
+
     @property
     def icon(self) -> str | None:
         return self.raw_data["icon"]
 
-class DevicePoint():
 
+class DevicePoint:
     def __init__(self, raw_data: dict):
         """Initialize a device point."""
         self.raw_data = raw_data
