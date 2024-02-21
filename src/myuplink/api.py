@@ -2,7 +2,7 @@
 from typing import List
 
 from .auth import AbstractAuth
-from .models import System, SystemNotification, Device, DevicePoint, Paging
+from .models import System, SystemNotification, Device, DevicePoint, Paging, Zone
 
 
 class MyUplinkAPI:
@@ -135,18 +135,18 @@ class MyUplinkAPI:
         resp.raise_for_status()
         return await resp.json()
 
-    async def async_get_smart_home_mode_json(self, system_id) -> dict:
+    async def async_get_smart_home_mode_json(self, system_id: str) -> dict:
         """Return smart_home_mode as json."""
         resp = await self.auth.request("get", f"v2/systems/{system_id}/smart-home-mode")
         resp.raise_for_status()
         return await resp.json()
 
-    async def async_get_smart_home_mode(self, system_id) -> dict:
+    async def async_get_smart_home_mode(self, system_id: str) -> dict:
         """Return smart_home_mode."""
         json = await self.async_get_smart_home_mode_json(system_id)
         return json
 
-    async def async_set_smart_home_mode(self, system_id, data: dict) -> dict:
+    async def async_set_smart_home_mode(self, system_id: str, data: dict) -> dict:
         """Return device points."""
         headers = {"Content-Type": "application/json-patch+json"}
         resp = await self.auth.request(
@@ -155,3 +155,29 @@ class MyUplinkAPI:
         resp.raise_for_status()
         array = await resp.json()
         return array
+
+    async def async_get_smart_home_categories_json(self, device_id: str) -> dict:
+        """Return smart home categories for device as json."""
+        resp = await self.auth.request(
+            "get", f"v2/devices/{device_id}/smart-home-categories"
+        )
+        resp.raise_for_status()
+        return await resp.json()
+
+    async def async_get_smart_home_categories(self, device_id: str) -> dict:
+        """Return smart home categories for device."""
+        data = await self.async_get_smart_home_categories_json(device_id)
+        return data
+
+    async def async_get_smart_home_zones_json(self, device_id: str) -> dict:
+        """Return smart home zones for device as json."""
+        resp = await self.auth.request(
+            "get", f"v2/devices/{device_id}/smart-home-zones"
+        )
+        resp.raise_for_status()
+        return await resp.json()
+
+    async def async_get_smart_home_zones(self, device_id: str) -> list[Zone]:
+        """Return smart home zones for device."""
+        data = await self.async_get_smart_home_zones_json(device_id)
+        return [Zone(zone_data) for zone_data in data]

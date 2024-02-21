@@ -357,3 +357,86 @@ class DevicePoint:
     @property
     def raw(self) -> dict:
         return self.raw_data
+
+
+class Zone:
+    """Define Zone object."""
+
+    def __init__(self, raw_data: dict):
+        """Init the Zone object."""
+        self.raw_data = raw_data
+
+    @property
+    def zone_id(self) -> str | None:
+        """Return the zone id."""
+        return self.raw_data["zoneId"]
+
+    @property
+    def name_id(self) -> str | None:
+        """Return the name."""
+        return self.raw_data["name"]
+
+    @property
+    def command_only(self) -> bool:
+        """Return command_only."""
+        return self.raw_data["commandOnly"]
+
+    @property
+    def supported_modes(self) -> str | None:
+        """Return the supported modes."""
+        return self.raw_data["supportedModes"]
+
+    @property
+    def mode(self) -> str | None:
+        """Return the mode."""
+        return self.raw_data["mode"]
+
+    @property
+    def temperature(self) -> float | None:
+        """Return the temperature."""
+        return self.raw_data["temperature"]
+
+    @property
+    def setpoint(self) -> float | None:
+        """Return the setpoint."""
+        return self.raw_data["setpoint"]
+
+    @property
+    def setpoint_heat(self) -> float | None:
+        """Return the heat setpoint."""
+        return self.raw_data["setpointHeat"]
+
+    @property
+    def setpoint_cool(self) -> float | None:
+        """Return the coolsetpoint."""
+        return self.raw_data["setpointCool"]
+
+    @property
+    def setpoint_range_max(self) -> int | None:
+        """Return the max range setpoint."""
+        return self.raw_data["setpointRangeMax"]
+
+    @property
+    def setpoint_range_min(self) -> int | None:
+        """Return the min range setpoint."""
+        return self.raw_data["setpointRangeMin"]
+
+    @property
+    def is_celcius(self) -> bool:
+        """Return is celcius."""
+        return self.raw_data["isCelcius"]
+
+    @property
+    def indoor_co2(self) -> int | None:
+        """Return the indoor CO2 level."""
+        return self.raw_data["indoorCo2"]
+
+    @property
+    def indoor_humidity(self) -> float | None:
+        """Return the indoor humidity."""
+        return self.raw_data["indoorHumidity"]
+
+    @property
+    def raw(self) -> dict:
+        """Return the raw data."""
+        return self.raw_data
