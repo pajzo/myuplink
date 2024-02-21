@@ -1,5 +1,5 @@
 """Data models for myuplink."""
-from typing import TypeVar, Generic, List
+from typing import TypeVar, Generic
 from datetime import datetime
 from enum import Enum
 
@@ -13,7 +13,7 @@ class Paging(Generic[T]):
     """Paging object."""
 
     def __init__(
-        self, page_number: int, items_per_page: int, total_items: int, items: List[T]
+        self, page_number: int, items_per_page: int, total_items: int, items: list[T]
     ):
         """Initialize a paging object."""
         self.page_number = page_number
@@ -193,7 +193,7 @@ class System:
         return self.raw_data["country"]
 
     @property
-    def devices(self) -> List[SystemDevice]:
+    def devices(self) -> list[SystemDevice]:
         """Return devices on the system."""
         return [SystemDevice(device_data) for device_data in self.raw_data["devices"]]
 
@@ -368,18 +368,17 @@ class DevicePoint:
         """Return the scaling factor for min and max values."""
         return self.raw_data["scaleValue"]
 
-    @property
-    def enum_values_list(self) -> List[EnumValue]:
+    def enum_values_list(self) -> list[EnumValue]:
         """Return the enumValues as list."""
         return [EnumValue(enum_data) for enum_data in self.raw_data["enumValues"]]
 
     @property
-    def enum_values(self) -> dict:
+    def enum_values(self) -> list[EnumValue]:
         """Return the enumValues as dict."""
         return self.raw_data["enumValues"]
 
     @property
-    def smart_home_categories(self) -> List[str]:
+    def smart_home_categories(self) -> list[str]:
         """Return smart_home_categories as list."""
         return self.raw_data["smartHomeCategories"]
 

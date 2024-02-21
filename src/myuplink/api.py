@@ -1,5 +1,4 @@
 """Define the MyUplinkAPI class."""
-from typing import List
 
 from .auth import AbstractAuth
 from .models import System, SystemNotification, Device, DevicePoint, Paging
@@ -32,7 +31,7 @@ class MyUplinkAPI:
         else:
             return False
 
-    async def async_get_systems(self) -> List[System]:
+    async def async_get_systems(self) -> list[System]:
         """Return systems."""
         json = await self.async_get_systems_json()
         array = json["systems"]
@@ -57,7 +56,7 @@ class MyUplinkAPI:
 
     async def async_get_device_points(
         self, device_id, language: str = "en-GB"
-    ) -> List[DevicePoint]:
+    ) -> list[DevicePoint]:
         """Return device points."""
         array = await self.async_get_device_points_json(device_id, language)
         return [DevicePoint(point_data) for point_data in array]
