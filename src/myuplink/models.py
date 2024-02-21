@@ -265,17 +265,7 @@ class Device:
     @property
     def available_features(self) -> dict[str, bool]:
         """Return dict with available features."""
-        return self.raw_data["available_features"]
-
-    @property
-    def firmwareDesired(self) -> str:
-        """Return the desired firmware version. Deprecated 2024-04-30."""
-        return self.desired_firmware_version
-
-    @property
-    def available_features(self) -> dict[str, bool]:
-        """Return dict with available features."""
-        return self.raw_data["available_features"]
+        return self.raw_data["availableFeatures"]
 
     @property
     def connectionState(self) -> DeviceConnectionState | None:
@@ -399,7 +389,7 @@ class DevicePoint:
         return self.raw_data["writable"]
 
     @property
-    def zone_id(self):
+    def zone_id(self) -> str | None:
         """Return the zone id."""
         return self.raw_data["zoneId"]
 
