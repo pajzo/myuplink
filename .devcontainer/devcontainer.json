@@ -35,14 +35,6 @@
           }
         },
         "terminal.integrated.defaultProfile.linux": "zsh",
-        "yaml.customTags": [
-          "!input scalar",
-          "!secret scalar",
-          "!include_dir_named scalar",
-          "!include_dir_list scalar",
-          "!include_dir_merge_list scalar",
-          "!include_dir_merge_named scalar"
-        ],
         "[python]": {
           "editor.defaultFormatter": "charliermarsh.ruff"
         }
