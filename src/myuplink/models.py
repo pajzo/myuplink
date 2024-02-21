@@ -34,7 +34,6 @@ class SystemNotificationStatus(Enum):
     DismissedByDevice = 2
     ResetByUserOnDevice = 3
     ResetByUserFromCloud = 4
-    Unknown = 99
 
 class SystemNotification():
 
@@ -63,14 +62,14 @@ class SystemNotification():
         return self.raw_data["severity"]
 
     @property
-    def status(self) -> SystemNotificationStatus:
+    def status(self) -> SystemNotificationStatus | None:
         """Return the status of the notification."""
         status_str = self.raw_data.get("status", "Unknown").replace("None", "NoStatus")
 
         if status_str in SystemNotificationStatus.__members__:
             return SystemNotificationStatus[status_str]
         else:
-            return SystemNotificationStatus.Unknown
+            return None
 
     @property
     def header(self) -> str:
@@ -124,7 +123,6 @@ class System():
 class DeviceConnectionState(Enum):
     Disconnected = 0
     Connected = 1
-    Unknown = 99
 
 class Device():
 
@@ -158,14 +156,14 @@ class Device():
         return self.raw_data["firmware"]["desiredFwVersion"]
 
     @property
-    def connectionState(self) -> DeviceConnectionState:
+    def connectionState(self) -> DeviceConnectionState | None:
         """Return the connection state."""
         connection_state_str = self.raw_data.get("connectionState", "Unknown")
 
         if connection_state_str in DeviceConnectionState.__members__:
             return DeviceConnectionState[connection_state_str]
         else:
-            return DeviceConnectionState.Unknown
+            return None
 
     @property
     def raw(self) -> dict:
