@@ -368,6 +368,7 @@ class DevicePoint:
         """Return the scaling factor for min and max values."""
         return self.raw_data["scaleValue"]
 
+    @property
     def enum_values_list(self) -> list[EnumValue]:
         """Return the enumValues as list."""
         return [EnumValue(enum_data) for enum_data in self.raw_data["enumValues"]]
