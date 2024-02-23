@@ -338,8 +338,17 @@ class DevicePoint:
         """Return the timestamp."""
         return self.raw_data["timestamp"]
 
+    # todo: Wait with sharp typing until integration is upgraded
+    # change to value_t in integration, when everything is stable
+    # change value() to typed, update lib and then change back to
+    # value() in the intergation
     @property
-    def value(self) -> str | float | int | None:
+    def value(self):
+        """Return the value."""
+        return self.raw_data["value"]
+
+    @property
+    def value_t(self) -> str | float | int | None:
         """Return the value."""
         return self.raw_data["value"]
 
@@ -373,8 +382,11 @@ class DevicePoint:
         """Return the enumValues as list."""
         return [EnumValue(enum_data) for enum_data in self.raw_data["enumValues"]]
 
+    # todo: Don't sharpen typing until integration is updated
+    # @property
+    # def enum_values(self) -> list[EnumValue]
     @property
-    def enum_values(self) -> list[EnumValue]:
+    def enum_values(self):
         """Return the enumValues as dict."""
         return self.raw_data["enumValues"]
 
