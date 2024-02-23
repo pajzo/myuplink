@@ -424,7 +424,7 @@ class Zone:
         return self.raw_data["zoneId"]
 
     @property
-    def name_id(self) -> str | None:
+    def name(self) -> str | None:
         """Return the name."""
         return self.raw_data["name"]
 
