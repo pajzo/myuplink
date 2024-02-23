@@ -4,6 +4,7 @@ import aiohttp
 
 from myuplink.auth import Auth
 from myuplink import MyUplinkAPI
+from my_token import MY_TOKEN
 
 
 async def main():
@@ -11,7 +12,7 @@ async def main():
         auth = Auth(
             session,
             "https://api.myuplink.com",
-            "TOKEN",
+            MY_TOKEN,
         )
         api = MyUplinkAPI(auth)
 
@@ -23,21 +24,23 @@ async def main():
 
             for sysDevice in system.devices:
                 device = await api.async_get_device(sysDevice.deviceId)
-                print(device.id)
-                print(device.productName)
-                print(device.productSerialNumber)
-                print(device.firmwareCurrent)
-                print(device.firmwareDesired)
-                print(device.connectionState)
+                print(f"Device id: {device.id}")
+                print(f"Device productName: {device.productName}")
+                print(f"Device productSerialNumber: {device.productSerialNumber}")
+                print(f"Device productCurrentFirmware: {device.firmwareCurrent}")
+                print(f"Device productDesiredFirmware: {device.firmwareDesired}")
+                print(f"Device connectionState: {device.connectionState}")
 
                 zones = await api.async_get_smart_home_zones(sysDevice.deviceId)
                 if len(zones) == 0:
+                    print()
                     print("No zones defined on device")
                 else:
                     for zone in zones:
-                        print(zone.zone_id)
-                        print(zone.name)
                         print("")
+                        print(f"Zone id: {zone.zone_id}")
+                        print(f"Zone name: {zone.name}")
+                print()
 
 
 asyncio.run(main())

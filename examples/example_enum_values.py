@@ -4,6 +4,7 @@ import aiohttp
 
 from myuplink.auth import Auth
 from myuplink import MyUplinkAPI
+from my_token import MY_TOKEN
 
 
 async def main():
@@ -11,7 +12,7 @@ async def main():
         auth = Auth(
             session,
             "https://api.myuplink.com",
-            "PUT-YOUR_TOKEN_HERE",
+            MY_TOKEN,
         )
         api = MyUplinkAPI(auth)
 
