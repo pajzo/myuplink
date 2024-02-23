@@ -5,6 +5,7 @@ import aiohttp
 from myuplink import Auth
 from myuplink import MyUplinkAPI
 from myuplink import get_manufacturer, get_model, get_series, get_system_name
+from my_token import MY_TOKEN
 
 
 async def main():
@@ -13,7 +14,7 @@ async def main():
         auth = Auth(
             session,
             "https://api.myuplink.com",
-            "PUT_YOUR_TOKEN_HERE",
+            MY_TOKEN,
         )
         api = MyUplinkAPI(auth)
 

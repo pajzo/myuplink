@@ -41,7 +41,6 @@ def get_system_name(system: System) -> str | None:
 
 def get_manufacturer(device: Device) -> str | None:
     """Return manufacturer name."""
-    print(device.product_name)
     for model, data in NAME_MAP.items():
         if re.search(model, device.product_name):
             return data.get("manufacturer")
