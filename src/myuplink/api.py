@@ -55,19 +55,24 @@ class MyUplinkAPI:
         return await resp.json()
 
     async def async_get_device_points(
-        self, device_id, language: str = "en-GB"
+        self, device_id, language: str = "en-GB", points: list[str] | None = None
     ) -> list[DevicePoint]:
         """Return device points."""
-        array = await self.async_get_device_points_json(device_id, language)
+        array = await self.async_get_device_points_json(device_id, language, points)
         return [DevicePoint(point_data) for point_data in array]
 
     async def async_get_device_points_json(
-        self, device_id, language: str = "en-GB"
+        self, device_id, language: str = "en-GB", points: list[str] | None = None
     ) -> dict:
         """Return device points as json."""
         headers = {"Accept-Language": language}
+        if points is None:
+            points = []
+        params = ""
+        if len(points) > 0:
+            params = "?parameters=" + ",".join(points)
         resp = await self.auth.request(
-            "get", f"v2/devices/{device_id}/points", headers=headers
+            "get", f"v2/devices/{device_id}/points{params}", headers=headers
         )
         resp.raise_for_status()
         return await resp.json()
