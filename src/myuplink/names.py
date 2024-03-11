@@ -17,7 +17,9 @@ NAME_MAP = {
     "F730": MAP_NIBEF,
     "F750": MAP_NIBEF,
     "SMO20": MAP_NIBEF,
+    "SMO 20": MAP_NIBEF,
     "SMO40": MAP_NIBEF,
+    "SMO 40": MAP_NIBEF,
     "VVM225": MAP_NIBEF,
     "VVM310": MAP_NIBEF,
     "VVM320": MAP_NIBEF,
@@ -31,6 +33,7 @@ NAME_MAP = {
     "S735": MAP_NIBES,
     "S2125": MAP_NIBES,
     "SMOS40": MAP_NIBES,
+    "SMOS 40": MAP_NIBES,
 }
 
 
