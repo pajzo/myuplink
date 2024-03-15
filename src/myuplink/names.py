@@ -1,4 +1,5 @@
 """Methods for getting names etc from API data."""
+
 import re
 from .models import Device, System
 
@@ -17,7 +18,9 @@ NAME_MAP = {
     "F730": MAP_NIBEF,
     "F750": MAP_NIBEF,
     "SMO20": MAP_NIBEF,
+    "SMO 20": MAP_NIBEF,
     "SMO40": MAP_NIBEF,
+    "SMO 40": MAP_NIBEF,
     "VVM225": MAP_NIBEF,
     "VVM310": MAP_NIBEF,
     "VVM320": MAP_NIBEF,
@@ -31,6 +34,7 @@ NAME_MAP = {
     "S735": MAP_NIBES,
     "S2125": MAP_NIBES,
     "SMOS40": MAP_NIBES,
+    "SMOS 40": MAP_NIBES,
 }
 
 
@@ -54,7 +58,7 @@ def get_model(device: Device) -> str | None:
         if re.search(model, device.product_name):
             return model
     name_list = device.product_name.split()
-    if len(name_list == 0):
+    if len(name_list) == 1:
         model = name_list[0]
     else:
         model = " ".join(name_list[1:])
