@@ -1,0 +1,6 @@
+-r requirements.txt
+
+pytest
+aioresponses
+colorlog
+pytest_asyncio
