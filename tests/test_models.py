@@ -11,7 +11,7 @@ from .const import API_ENDPOINT
 
 
 @pytest.mark.asyncio
-async def test_systems(aiosession: ClientSession, aioresponse):
+async def test_system(aiosession: ClientSession, aioresponse):
     """Test System model."""
     aioresponse.get(
         f"{API_ENDPOINT}/v2/systems/me", payload=load_json_fixture("systems.json")
