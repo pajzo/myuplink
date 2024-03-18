@@ -27,3 +27,21 @@ async def test_system(aiosession: ClientSession, aioresponse):
     device = system.devices[0]
     assert device.id == "batman-r-1234-20240201-123456-aa-bb-cc-dd-ee-ff"
     await aiosession.close()
+
+
+@pytest.mark.asyncio
+async def test_points(aiosession: ClientSession, aioresponse):
+    """Test DevicePoint model."""
+    aioresponse.get(
+        f"{API_ENDPOINT}/v2/devices/dummy/points",
+        payload=load_json_fixture("device_points.json"),
+    )
+    auth = Auth(aiosession, API_ENDPOINT, "token")
+    api = MyUplinkAPI(auth)
+    device_points = await api.async_get_device_points("dummy")
+    assert len(device_points) == 4
+    device_point = device_points[0]
+    assert device_point.category == "NIBEF F730 CU 3x400V"
+    assert device_point.parameter_id == "40004"
+    assert device_point.value == -9.3
+    await aiosession.close()
