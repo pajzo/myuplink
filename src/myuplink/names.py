@@ -1,4 +1,5 @@
 """Methods for getting names etc from API data."""
+
 import re
 from .models import Device, System
 
@@ -57,7 +58,7 @@ def get_model(device: Device) -> str | None:
         if re.search(model, device.product_name):
             return model
     name_list = device.product_name.split()
-    if len(name_list == 0):
+    if len(name_list) == 1:
         model = name_list[0]
     else:
         model = " ".join(name_list[1:])
