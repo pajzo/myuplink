@@ -6,6 +6,7 @@ from .models import Device, System
 
 MAP_NIBEF = {"manufacturer": "Nibe", "series": "F"}
 MAP_NIBES = {"manufacturer": "Nibe", "series": "S"}
+MAP_TEHOWATTIA = {"manufacturer": "Jäspi", "series": "TA"}
 NAME_MAP = {
     "F1145": MAP_NIBEF,
     "F1155": MAP_NIBEF,
@@ -35,6 +36,7 @@ NAME_MAP = {
     "S2125": MAP_NIBES,
     "SMOS40": MAP_NIBES,
     "SMOS 40": MAP_NIBES,
+    "Tehowatti Air": MAP_TEHOWATTIA,
 }
 
 
