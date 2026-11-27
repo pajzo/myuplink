@@ -51,7 +51,9 @@ def get_manufacturer(device: Device) -> str | None:
         if re.search(model, device.product_name):
             return data.get("manufacturer")
 
-    return device.productName.split()[0]
+    # Some devices report an empty product name
+    words = device.product_name.split()
+    return words[0] if words else None
 
 
 def get_model(device: Device) -> str | None:
@@ -60,6 +62,8 @@ def get_model(device: Device) -> str | None:
         if re.search(model, device.product_name):
             return model
     name_list = device.product_name.split()
+    if not name_list:
+        return None
     if len(name_list) == 1:
         model = name_list[0]
     else:
